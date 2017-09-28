@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>football</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<script src="3rdjs/three.min.js"></script>
+		<script type="text/javascript" src="3rdjs/qrcode.min.js"></script>
+		<script type="text/javascript" src="3rdjs/ImprovedNoise.js"></script>
+	</head>
+
+	<body style="margin:0px;overflow: hidden;">
+	<div id="qrcode0" style="display:none"></div>
+	<div id="qrcode1" style="display:none"></div>
+	<div id="qrcode2" style="display:none"></div>
+	<div id="qrcode3" style="display:none"></div>
+	<div id="qrcode4" style="display:none"></div>
+	<div id="qrcode5" style="display:none"></div>
+	<div id="qrcode6" style="display:none"></div>
+	<div id="qrcode7" style="display:none"></div>
+	<div id="qrcode8" style="display:none"></div>
+	<div id="qrcode9" style="display:none"></div>
+	<div id="qrcode10" style="display:none"></div>
+	<div id="qrcode11" style="display:none"></div>
+		<script>
+			var qrnum = 12;
+			for (i=0;i<qrnum;i++){
+				var qrcode = new QRCode("qrcode"+i);
+				qrcode.makeCode("http://www.leasiondata.com");
+			}
+			var scene = new THREE.Scene();
+			var texture = new THREE.TextureLoader().load( "textures/nx.jpg" );
+			texture.repeat.set( 1, 1 );
+			scene.background=texture;
+			
+			scene.add(new THREE.AmbientLight( 0x666666 ));
+			
+			var spotLight = new THREE.SpotLight( 0xffffff, 1.2 );
+			spotLight.castShadow = true;
+			spotLight.angle = 0.56;
+			spotLight.distance = 4000;
+			spotLight.shadow.mapSize.width = 1024;
+			spotLight.shadow.mapSize.height = 1024;
+			scene.add( spotLight );
+			
+			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 1, 20000 );
+			camera.position.x = 7000;
+			camera.position.y = -7000;
+			camera.position.z = 0;
+			
+			var renderer = new THREE.WebGLRenderer({antialias:true});
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.shadowMap.enabled = true;
+			renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+			document.body.appendChild( renderer.domElement );
+			camera.updateProjectionMatrix();
+			renderer.render(scene, camera);
+
+			var texture = new THREE.TextureLoader().load( 'textures/grasslight-big.jpg' );
+			texture.anisotropy = 16;
+			var geometry = new THREE.BoxGeometry( 2048, 24, 2048 );
+			var material = new THREE.MeshPhongMaterial( { map: texture } );
+			cube = new THREE.Mesh( geometry, material );
+			cube.receiveShadow = true;
+			cube.position.y+=500;
+			scene.add( cube );
+			
+			var geometryleft = new THREE.CylinderBufferGeometry( 5, 5, 300, 32 );
+			var materialleft = new THREE.MeshBasicMaterial( {color: 0xeeeeee} );
+			var cylinderleft = new THREE.Mesh( geometryleft, materialleft );
+			cylinderleft.position.x=-400;
+			cylinderleft.position.y=662;
+			cylinderleft.position.z=-400;
+			cylinderleft.castShadow = true;
+			scene.add( cylinderleft );
+			
+			var geometryright = new THREE.CylinderBufferGeometry( 5, 5, 300, 32 );
+			var materialright = new THREE.MeshBasicMaterial( {color: 0xeeeeee} );
+			var cylinderright = new THREE.Mesh( geometryright, materialright );
+			cylinderright.position.x=400;
+			cylinderright.position.y=662;
+			cylinderright.position.z=-400;
+			cylinderright.castShadow = true;
+			scene.add( cylinderright );
+			
+			var geometrytop = new THREE.CylinderBufferGeometry( 5, 5, 805, 32 );
+			var materialtop = new THREE.MeshBasicMaterial( {color: 0xeeeeee} );
+			var cylindertop = new THREE.Mesh( geometrytop, materialtop );
+			cylindertop.position.x=0;
+			cylindertop.position.y=812;
+			cylindertop.position.z=-400;
+			cylindertop.rotation.z=Math.PI/2;
+			cylindertop.castShadow = true;
+			scene.add( cylindertop );
+			
+			var texturenet = new THREE.TextureLoader().load( "textures/circuit_pattern.png" );
+			texturenet.wrapS = texturenet.wrapT = THREE.RepeatWrapping;
+			texturenet.repeat.set( 1, 1 );
+			texturenet.anisotropy = 16;
+			var materialnet = new THREE.MeshPhongMaterial( {
+				specular: 0x030303,
+				map: texturenet,
+				side: THREE.DoubleSide,
+				alphaTest: 0.5
+			} );
+			
+			var geometrynetback = new THREE.PlaneGeometry( 805, 300, 1, 1);
+			geometrynetback.rotateX( Math.PI );
+			var meshnetback = new THREE.Mesh( geometrynetback, materialnet );
+			meshnetback.position.set(0,662,-525);
+			meshnetback.castShadow = true;
+			scene.add( meshnetback );
+
+			var geometrynettop = new THREE.PlaneGeometry( 805, 125, 1, 1);
+			geometrynettop.rotateX( Math.PI / 2 );
+			var meshnettop = new THREE.Mesh( geometrynettop, materialnet );
+			meshnettop.position.set(0,812,-455);
+			meshnettop.castShadow = true;
+			scene.add( meshnettop );
+			
+			var geometrynetleft = new THREE.PlaneGeometry( 125, 300, 1, 1);
+			geometrynetleft.rotateY( -Math.PI / 2 );
+			var meshnetleft = new THREE.Mesh( geometrynetleft, materialnet);
+			meshnetleft.position.set(-400,662,-455);
+			meshnetleft.castShadow = true;
+			scene.add( meshnetleft );
+			
+			var geometrynetright = new THREE.PlaneGeometry( 125, 300, 1, 1);
+			geometrynetright.rotateY( -Math.PI / 2 );
+			var meshnetright = new THREE.Mesh( geometrynetright, materialnet );
+			meshnetright.position.set(400,662,-455);
+			meshnetright.castShadow = true;
+			scene.add( meshnetright );
+			
+			var materialbone = new THREE.LineBasicMaterial({
+				color: 0x111111,
+				linewidth:2
+			});
+			var keeper = new THREE.Group();
+			
+			var geoleftarm = new THREE.Geometry();
+			geoleftarm.vertices.push(
+					new THREE.Vector3( 0, 140, 0 ),
+					new THREE.Vector3( -20, 80, 0 )
+				);
+			var leftarm = new THREE.Line( geoleftarm, materialbone );
+			leftarm.castShadow = true;
+			keeper.add( leftarm );
+			
+			var georightarm = new THREE.Geometry();
+			georightarm.vertices.push(
+					new THREE.Vector3( 0, 140, 0 ),
+					new THREE.Vector3( 20, 80, 0 )
+				);
+			var rightarm = new THREE.Line( georightarm, materialbone );
+			rightarm.castShadow = true;
+			keeper.add( rightarm );
+			
+			var geobody = new THREE.Geometry();
+			geobody.vertices.push(
+					new THREE.Vector3( 0, 160, 0 ),
+					new THREE.Vector3( 0, 80, 0 )
+				);
+			var body = new THREE.Line( geobody, materialbone );
+			body.castShadow = true;
+			keeper.add( body );
+			
+			var geoleftleg = new THREE.Geometry();
+			geoleftleg.vertices.push(
+					new THREE.Vector3( 0, 80, 0 ),
+					new THREE.Vector3( -20, 0, 0 )
+				);
+			var leftleg = new THREE.Line( geoleftleg, materialbone );
+			leftleg.castShadow = true;
+			keeper.add( leftleg );
+			
+			var georightleg = new THREE.Geometry();
+			georightleg.vertices.push(
+					new THREE.Vector3( 0, 80, 0 ),
+					new THREE.Vector3( 20, 0, 0 )
+				);
+			var rightleg = new THREE.Line( georightleg, materialbone );
+			rightleg.castShadow = true;
+			keeper.add( rightleg );
+			
+			var materialhead = new THREE.MeshPhongMaterial()
+
+			var texturehead = new THREE.TextureLoader().load( 'textures/sc.jpg' );
+			texturehead.anisotropy = 16;
+			materialhead.map = texturehead;
+			var geometryhead = new THREE.SphereGeometry( 60, 32, 32 );
+			var head = new THREE.Mesh( geometryhead, materialhead);
+			head.position.set( 0, 200, 0 );
+			head.rotation.y=-Math.PI/2;
+			head.castShadow = true;
+			keeper.add( head );
+			keeper.position.set(-600, 512, -300);
+			keeper.rotation.y=Math.PI/2;
+			scene.add( keeper );
+			
+			//move camera
+			var movecamerasteps = 150;
+			var camerapathcurve = new THREE.QuadraticBezierCurve3();
+			camerapathcurve.v0 = new THREE.Vector3(10000, -10000, 0);//start point
+			camerapathcurve.v1 = new THREE.Vector3(3000, 3000, 2000);//curve point
+			camerapathcurve.v2 = new THREE.Vector3(0, 1150, 1350);//end point
+			var movecamera=0;
+			
+			var initcamera = function () {
+				
+				if (movecamera++<movecamerasteps) {
+					var moveto = camerapathcurve.getPoint(movecamera / movecamerasteps);
+					camera.position.set( moveto.x, moveto.y, moveto.z );
+					camera.lookAt(new THREE.Vector3( 0, 150, -1024 ));
+					camera.updateProjectionMatrix();
+					requestAnimationFrame( initcamera );
+					renderer.render(scene, camera);
+				} else {
+					initlight();
+				}
+			};
+
+			initcamera();
+
+			//move light
+			var movelightsteps = 100;
+			var lightpathcurve = new THREE.QuadraticBezierCurve3();
+			lightpathcurve.v0 = new THREE.Vector3(0, 600, -524);//start point
+			lightpathcurve.v1 = new THREE.Vector3(0, 600, 200);//curve point
+			lightpathcurve.v2 = new THREE.Vector3(800,2000,1024);//end point
+			var movelight=0;
+			var initlight = function () {
+				if (movelight++<movelightsteps){
+					var moveto = lightpathcurve.getPoint(movelight / movelightsteps);
+					spotLight.position.set( moveto.x, moveto.y, moveto.z );
+					requestAnimationFrame( initlight );
+					renderer.render(scene, camera);
+				}
+			};
+			
+
+			var rotateqrgroup = function(){
+				if (scene.getObjectByName("qrgroup").rotation.x>-Math.PI/9){
+					scene.getObjectByName("qrgroup").rotation.x-=0.01;
+					scene.getObjectByName("qrgroup").position.y-=8;
+					scene.getObjectByName("qrgroup").position.z+=6;
+					requestAnimationFrame( rotateqrgroup );
+					renderer.render(scene, camera);
+				} else {
+					//for (i=0;i<qrnum;i++){
+					//	scene.add( scene.getObjectByName("qrcode"+i) );
+					//}
+					renderer.render(scene, camera);
+					keeperready = true;
+				}
+			}
+			
+			var raycaster = new THREE.Raycaster();
+			var mouse = new THREE.Vector2();
+			var keeperready = false;
+			function onMouseClick( event ) {
+				if (keeperready){
+					mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+					mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+					raycaster.setFromCamera( mouse, camera );
+					var intersects = raycaster.intersectObjects( scene.getObjectByName("qrgroup").children );
+					shootingballindex = -1;
+					for ( var i = 0; i < intersects.length; i++ ) {
+						if(intersects[ i ].object.name.indexOf("qrcode")!=-1&&intersects[ i ].object.visible){
+							shootingballindex = parseInt(intersects[ i ].object.name.substring(6));
+						}
+					}
+					if (shootingballindex==-1){
+						return;
+					}
+					keeperready = false;
+					var shootingtoindex = Math.floor(Math.random()*4);
+					if (shootingtoindex==0){
+						shootingto = "topleft";
+					} else if (shootingtoindex==1){
+						shootingto = "topright";
+					} else if (shootingtoindex==2){
+						shootingto = "bottomleft";
+					} else {
+						shootingto = "bottomright";
+					}
+					var materialqrball = new THREE.MeshPhongMaterial()
+					
+					var textureqrball = new THREE.Texture(document.getElementById( 'qrcode'+shootingballindex ).getElementsByTagName("img")[0]);
+					textureqrball.anisotropy = 16;
+					textureqrball.needsUpdate = true;
+					materialqrball.map = textureqrball;
+					var geometryqrball = new THREE.SphereGeometry( 60, 32, 32 );
+					var qrball = new THREE.Mesh( geometryqrball, materialqrball);
+					qrball.position.set( scene.getObjectByName("qrcode"+shootingballindex).position.x, 
+							scene.getObjectByName("qrcode"+shootingballindex).position.y, 
+							scene.getObjectByName("qrcode"+shootingballindex).position.z-100 );
+					qrball.rotation.y=-Math.PI/2;
+					qrball.castShadow = true;
+					qrball.name="qrball"+shootingballindex;
+					scene.add( qrball );
+					scene.getObjectByName("qrcode"+shootingballindex).visible=false;
+					renderer.render(scene, camera);
+					floating = true;
+					initshooting();
+					setTimeout(function(){
+						floating = false;
+						if (Math.random()<0.5){
+							jumpto = "";
+						} else {
+							jumpto = shootingto;
+						}
+						jump();
+						createshootingpath();
+						shooting();
+					},3000);
+				}
+			}
+
+			window.addEventListener( 'mousedown', onMouseClick, false );
+			
+			var moveqrcode = function(){
+				var moving = false;
+				for (i=0;i<qrnum;i++){
+					if (i==0||scene.getObjectByName("qrcode"+(i-1)).position.z>-200){
+						
+						if (scene.getObjectByName("qrcode"+i).position.z<900){
+							scene.getObjectByName("qrcode"+i).position.x-=4*(qrnum/4.8-Math.floor(i/2));
+							scene.getObjectByName("qrcode"+i).position.z+=20;
+							if (i%2==1){
+								scene.getObjectByName("qrcode"+i).position.y+=4;
+							}
+							moving = true;
+						}
+					}
+					
+				}
+				if (moving){
+					requestAnimationFrame( moveqrcode );
+					renderer.render(scene, camera);
+				} else {
+					rotateqrgroup();
+				}
+			}
+			
+			var floating = false;
+			var shootingballindex=0;
+			var shootingto="topleft";//topright/bottomleft/bottomright
+			var initshooting = function(){
+				if (floating){
+					scene.getObjectByName("qrball"+shootingballindex).position.y+=Math.sin(Date.now()*0.006);
+					requestAnimationFrame( initshooting );
+					renderer.render(scene, camera);
+				}
+			}
+			
+			var shootingpath;
+			var goalx = -600;
+			var createshootingpath = function(){
+				if (shootingto=="topleft"){
+					if (jumpto==shootingto){
+						var extrudePath = new THREE.CatmullRomCurve3( [
+							new THREE.Vector3( scene.getObjectByName("qrball"+shootingballindex).position.x, 
+									scene.getObjectByName("qrball"+shootingballindex).position.y, 
+									scene.getObjectByName("qrball"+shootingballindex).position.z ), 
+							new THREE.Vector3( -924, 812, 0 ),
+							new THREE.Vector3( -700, 812, -100 ),
+							new THREE.Vector3( -250, 800, -300 ),//keeper head
+							new THREE.Vector3( -1100, 512, -300 ),
+							new THREE.Vector3( -1300, 112, -300 )
+						] );
+						shootingpath = new THREE.TubeBufferGeometry( extrudePath, 400, 2, 1, false );
+					} else {
+						goalx+=150;
+						var extrudePath = new THREE.CatmullRomCurve3( [
+							new THREE.Vector3( scene.getObjectByName("qrball"+shootingballindex).position.x, 
+									scene.getObjectByName("qrball"+shootingballindex).position.y, 
+									scene.getObjectByName("qrball"+shootingballindex).position.z ), 
+							new THREE.Vector3( -924, 812, 0 ),
+							new THREE.Vector3( -700, 812, -100 ),
+							new THREE.Vector3( -250, 800, -300 ),//keeper head
+							new THREE.Vector3( -250, 712, -450 ),
+							new THREE.Vector3( -250, 600, -450 ),
+							new THREE.Vector3( -230, 660, -450 ),
+							new THREE.Vector3( -210, 600, -450 ),
+							new THREE.Vector3( -190, 620, -450 ),
+							new THREE.Vector3( -170, 600, -450 ),
+							new THREE.Vector3( -130, 600, -450 ),
+							new THREE.Vector3( goalx, 1024, -450 )
+						] );
+						shootingpath = new THREE.TubeBufferGeometry( extrudePath, 400, 2, 1, false );
+					}
+				} else if (shootingto=="bottomleft"){
+					if (jumpto==shootingto){
+						var extrudePath = new THREE.CatmullRomCurve3( [
+							new THREE.Vector3( scene.getObjectByName("qrball"+shootingballindex).position.x, 
+									scene.getObjectByName("qrball"+shootingballindex).position.y, 
+									scene.getObjectByName("qrball"+shootingballindex).position.z ), 
+							new THREE.Vector3( -924, 812, 0 ),
+							new THREE.Vector3( -700, 812, -100 ),
+							new THREE.Vector3( -250, 650, -300 ),//keeper foot
+							new THREE.Vector3( -400, 600, -300 ),
+							new THREE.Vector3( -1024, 600, -300 ),
+							new THREE.Vector3( -1100, 550, -300 ),
+							new THREE.Vector3( -1300, 112, -300 )
+						] );
+						shootingpath = new THREE.TubeBufferGeometry( extrudePath, 400, 2, 1, false );
+					} else {
+						goalx+=150;
+						var extrudePath = new THREE.CatmullRomCurve3( [
+							new THREE.Vector3( scene.getObjectByName("qrball"+shootingballindex).position.x, 
+									scene.getObjectByName("qrball"+shootingballindex).position.y, 
+									scene.getObjectByName("qrball"+shootingballindex).position.z ), 
+							new THREE.Vector3( -924, 812, 0 ),
+							new THREE.Vector3( -700, 812, -100 ),
+							new THREE.Vector3( -250, 650, -300 ),//keeper foot
+							new THREE.Vector3( -220, 600, -450 ),
+							new THREE.Vector3( -200, 600, -450 ),
+							new THREE.Vector3( 100, 600, -450 ),
+							new THREE.Vector3( goalx, 1024, -450 )
+						] );
+						shootingpath = new THREE.TubeBufferGeometry( extrudePath, 400, 2, 1, false );
+					}
+				} else if (shootingto=="topright"){
+					if (jumpto==shootingto){
+						var extrudePath = new THREE.CatmullRomCurve3( [
+							new THREE.Vector3( scene.getObjectByName("qrball"+shootingballindex).position.x, 
+									scene.getObjectByName("qrball"+shootingballindex).position.y, 
+									scene.getObjectByName("qrball"+shootingballindex).position.z ), 
+							new THREE.Vector3( 924, 812, 0 ),
+							new THREE.Vector3( 700, 812, -100 ),
+							new THREE.Vector3( 250, 800, -300 ),//keeper head
+							new THREE.Vector3( 1100, 512, -300 ),
+							new THREE.Vector3( 1300, 112, -300 )
+						] );
+						shootingpath = new THREE.TubeBufferGeometry( extrudePath, 400, 2, 1, false );
+					} else {
+						goalx+=150;
+						var extrudePath = new THREE.CatmullRomCurve3( [
+							new THREE.Vector3( scene.getObjectByName("qrball"+shootingballindex).position.x, 
+									scene.getObjectByName("qrball"+shootingballindex).position.y, 
+									scene.getObjectByName("qrball"+shootingballindex).position.z ), 
+							new THREE.Vector3( 924, 812, 0 ),
+							new THREE.Vector3( 700, 812, -100 ),
+							new THREE.Vector3( 250, 800, -300 ),//keeper head
+							new THREE.Vector3( 250, 712, -450 ),
+							new THREE.Vector3( 250, 600, -450 ),
+							new THREE.Vector3( 230, 660, -450 ),
+							new THREE.Vector3( 210, 600, -450 ),
+							new THREE.Vector3( 190, 620, -450 ),
+							new THREE.Vector3( 170, 600, -450 ),
+							new THREE.Vector3( 130, 600, -450 ),
+							new THREE.Vector3( goalx, 1024, -450 )
+						] );
+						shootingpath = new THREE.TubeBufferGeometry( extrudePath, 400, 2, 1, false );
+					}
+				} else {//bottomright
+					if (jumpto==shootingto){
+						var extrudePath = new THREE.CatmullRomCurve3( [
+							new THREE.Vector3( scene.getObjectByName("qrball"+shootingballindex).position.x, 
+									scene.getObjectByName("qrball"+shootingballindex).position.y, 
+									scene.getObjectByName("qrball"+shootingballindex).position.z ), 
+							new THREE.Vector3( 924, 812, 0 ),
+							new THREE.Vector3( 700, 812, -100 ),
+							new THREE.Vector3( 250, 650, -300 ),//keeper foot
+							new THREE.Vector3( 400, 600, -300 ),
+							new THREE.Vector3( 1024, 600, -300 ),
+							new THREE.Vector3( 1100, 550, -300 ),
+							new THREE.Vector3( 1300, 112, -300 )
+						] );
+						shootingpath = new THREE.TubeBufferGeometry( extrudePath, 400, 2, 1, false );
+					} else {
+						goalx+=150;
+						var extrudePath = new THREE.CatmullRomCurve3( [
+							new THREE.Vector3( scene.getObjectByName("qrball"+shootingballindex).position.x, 
+									scene.getObjectByName("qrball"+shootingballindex).position.y, 
+									scene.getObjectByName("qrball"+shootingballindex).position.z ), 
+							new THREE.Vector3( 924, 812, 0 ),
+							new THREE.Vector3( 700, 812, -100 ),
+							new THREE.Vector3( 250, 650, -300 ),//keeper foot
+							new THREE.Vector3( 220, 600, -450 ),
+							new THREE.Vector3( 200, 600, -450 ),
+							new THREE.Vector3( -100, 600, -450 ),
+							new THREE.Vector3( goalx, 1024, -450 )
+						] );
+						shootingpath = new THREE.TubeBufferGeometry( extrudePath, 400, 2, 1, false );
+					}
+				}
+			}
+			var shootingsteps = 150;
+			var moveshooting=0;
+			var shooting = function(){
+				var step = 2;
+				if (scene.getObjectByName("qrball"+shootingballindex).position.z<=-300){
+					step = 0.6;
+				}
+				
+				moveshooting += step;
+				if (moveshooting<shootingsteps) {
+					var moveto = shootingpath.parameters.path.getPointAt(moveshooting / shootingsteps);
+					scene.getObjectByName("qrball"+shootingballindex).position.set( moveto.x, moveto.y, moveto.z );
+					if (shootingto=="topright"||shootingto=="bottomright"){
+						scene.getObjectByName("qrball"+shootingballindex).rotation.y+=0.1;
+					} else {
+						scene.getObjectByName("qrball"+shootingballindex).rotation.y-=0.1;
+					}
+					requestAnimationFrame( shooting );
+					renderer.render(scene, camera);
+				} else {
+					moveshooting=0;
+					jumpto = "";
+					reset();
+					keeperready = true;
+				}
+			}
+			
+			var initqrcode = function (){
+				var qrgroup = new THREE.Group();
+				qrgroup.name="qrgroup";
+				for (i=0;i<qrnum;i++){
+					var imageqr = document.getElementById( 'qrcode'+i ).getElementsByTagName("img")[0];
+					var textureqr = new THREE.Texture( imageqr );
+					textureqr.anisotropy = 16;
+					textureqr.needsUpdate = true;
+					var materialqr = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0x111111, map: textureqr} );
+					var meshqr = new THREE.Mesh( new THREE.BoxGeometry( 200, 200, 0.1 ), materialqr );
+					meshqr.position.y = 612;
+					meshqr.position.z = -230;
+					meshqr.position.x = 0;
+					meshqr.castShadow = true;
+					meshqr.name="qrcode"+i;
+					qrgroup.add( meshqr );
+				}
+				scene.add(qrgroup);
+				renderer.render(scene, camera);
+				moveqrcode();
+			}
+			
+			var initmove = function(){
+				if (keeper.position.x<0){
+					keeper.position.x+=2;
+					requestAnimationFrame( initmove );
+					renderer.render(scene, camera);
+				} else {
+					keeper.rotation.y=0;
+					renderer.render(scene, camera);
+					iswalking=false;
+					initqrcode();
+				}
+			}
+			
+			initmove();
+
+			var walkframes = 40;
+			var walking = -1;
+			var oneframe = -2;
+			var iswalking = false;
+			var walk = function(){
+				if (iswalking){
+					if (walking == -1){
+						leftarm.geometry.vertices[1].z+=walkframes;
+						rightarm.geometry.vertices[1].z+=walkframes*-1;
+						rightleg.geometry.vertices[1].z+=walkframes;
+						leftleg.geometry.vertices[1].z+=walkframes*-1;
+					}
+					requestAnimationFrame( walk );
+					if (walking++>walkframes){
+						oneframe = oneframe*-1;
+						walking = 0;
+					}
+					leftarm.geometry.vertices[1].z+=oneframe;
+					rightarm.geometry.vertices[1].z+=oneframe*-1;
+					rightleg.geometry.vertices[1].z+=oneframe;
+					leftleg.geometry.vertices[1].z+=oneframe*-1;
+					
+					leftarm.geometry.verticesNeedUpdate = true;
+					rightarm.geometry.verticesNeedUpdate = true;
+					rightleg.geometry.verticesNeedUpdate = true;
+					leftleg.geometry.verticesNeedUpdate = true;
+					renderer.render(scene, camera);
+				} else {
+					walking = -1;
+					leftarm.geometry.vertices[1].z=0;
+					rightarm.geometry.vertices[1].z=0;
+					rightleg.geometry.vertices[1].z=0;
+					leftleg.geometry.vertices[1].z=0;
+					
+					leftarm.geometry.verticesNeedUpdate = true;
+					rightarm.geometry.verticesNeedUpdate = true;
+					rightleg.geometry.verticesNeedUpdate = true;
+					leftleg.geometry.verticesNeedUpdate = true;
+					renderer.render(scene, camera);
+				}
+			}
+			
+			iswalking = true;
+			walk();
+			var jumpto = "topleft";//bottomleft/topright/bottomright
+			var jumpmax = 12;
+			var jump = function(){
+				if (keeper.position.y<612){
+					keeper.position.y+=jumpmax;
+					jumpmax--;
+					if (jumpmax<1){
+						jumpmax=1;
+					}
+					requestAnimationFrame( jump );
+					renderer.render(scene, camera);
+				} else {
+					jumpmax=12;
+					jumptowhere();
+				}
+			}
+			
+			var jumptowhere = function(){
+				if (jumpto=="topleft"){
+					leftarm.geometry.vertices[1].x=10;
+					leftarm.geometry.vertices[1].y=80;
+					leftarm.geometry.vertices[1].z=0;
+					
+					rightarm.geometry.vertices[1].x=20;
+					rightarm.geometry.vertices[1].y=90;
+					rightarm.geometry.vertices[1].z=0;
+					
+					rightleg.geometry.vertices[1].x=30;
+					rightleg.geometry.vertices[1].y=0;
+					rightleg.geometry.vertices[1].z=0;
+					
+					leftleg.geometry.vertices[1].x=-5;
+					leftleg.geometry.vertices[1].y=10;
+					leftleg.geometry.vertices[1].z=0;
+					
+					leftarm.geometry.verticesNeedUpdate = true;
+					rightarm.geometry.verticesNeedUpdate = true;
+					rightleg.geometry.verticesNeedUpdate = true;
+					leftleg.geometry.verticesNeedUpdate = true;
+					if (keeper.position.x>-200){
+						keeper.position.x-=10;
+						requestAnimationFrame( jumptowhere );
+						renderer.render(scene, camera);
+					} else {
+						//reset();
+						//jumpto="bottomleft";
+						//jump();
+					}
+				} else if (jumpto=="bottomleft"){
+					leftarm.geometry.vertices[1].x=10;
+					leftarm.geometry.vertices[1].y=80;
+					leftarm.geometry.vertices[1].z=0;
+					
+					rightarm.geometry.vertices[1].x=20;
+					rightarm.geometry.vertices[1].y=90;
+					rightarm.geometry.vertices[1].z=0;
+					
+					rightleg.geometry.vertices[1].x=-20;
+					rightleg.geometry.vertices[1].y=40;
+					rightleg.geometry.vertices[1].z=0;
+					
+					leftleg.geometry.vertices[1].x=-50;
+					leftleg.geometry.vertices[1].y=30;
+					leftleg.geometry.vertices[1].z=0;
+					
+					leftarm.geometry.verticesNeedUpdate = true;
+					rightarm.geometry.verticesNeedUpdate = true;
+					rightleg.geometry.verticesNeedUpdate = true;
+					leftleg.geometry.verticesNeedUpdate = true;
+					if (keeper.position.x>-200){
+						keeper.position.x-=10;
+						keeper.position.y-=1.5;
+						requestAnimationFrame( jumptowhere );
+						renderer.render(scene, camera);
+					} else {
+						//reset();
+						//jumpto="topright";
+						//jump();
+					}
+				} else if (jumpto=="topright"){
+					leftarm.geometry.vertices[1].x=-10;
+					leftarm.geometry.vertices[1].y=80;
+					leftarm.geometry.vertices[1].z=0;
+					
+					rightarm.geometry.vertices[1].x=-20;
+					rightarm.geometry.vertices[1].y=90;
+					rightarm.geometry.vertices[1].z=0;
+					
+					rightleg.geometry.vertices[1].x=-30;
+					rightleg.geometry.vertices[1].y=0;
+					rightleg.geometry.vertices[1].z=0;
+					
+					leftleg.geometry.vertices[1].x=5;
+					leftleg.geometry.vertices[1].y=10;
+					leftleg.geometry.vertices[1].z=0;
+					
+					leftarm.geometry.verticesNeedUpdate = true;
+					rightarm.geometry.verticesNeedUpdate = true;
+					rightleg.geometry.verticesNeedUpdate = true;
+					leftleg.geometry.verticesNeedUpdate = true;
+					if (keeper.position.x<200){
+						keeper.position.x+=10;
+						requestAnimationFrame( jumptowhere );
+						renderer.render(scene, camera);
+					} else {
+						//reset();
+						//jumpto="bottomright";
+						//jump();
+					}
+				} else if (jumpto=="bottomright"){
+					leftarm.geometry.vertices[1].x=-10;
+					leftarm.geometry.vertices[1].y=80;
+					leftarm.geometry.vertices[1].z=0;
+					
+					rightarm.geometry.vertices[1].x=-20;
+					rightarm.geometry.vertices[1].y=90;
+					rightarm.geometry.vertices[1].z=0;
+					
+					rightleg.geometry.vertices[1].x=20;
+					rightleg.geometry.vertices[1].y=40;
+					rightleg.geometry.vertices[1].z=0;
+					
+					leftleg.geometry.vertices[1].x=50;
+					leftleg.geometry.vertices[1].y=30;
+					leftleg.geometry.vertices[1].z=0;
+					
+					leftarm.geometry.verticesNeedUpdate = true;
+					rightarm.geometry.verticesNeedUpdate = true;
+					rightleg.geometry.verticesNeedUpdate = true;
+					leftleg.geometry.verticesNeedUpdate = true;
+					if (keeper.position.x<200){
+						keeper.position.x+=10;
+						keeper.position.y-=1.5;
+						requestAnimationFrame( jumptowhere );
+						renderer.render(scene, camera);
+					} else {
+						//reset();
+					}
+				} else {
+					reset();
+				}
+			}
+			var reset = function(){
+				leftarm.geometry.vertices[1].x=-20;
+				leftarm.geometry.vertices[1].y=80;
+				leftarm.geometry.vertices[1].z=0;
+				
+				rightarm.geometry.vertices[1].x=20;
+				rightarm.geometry.vertices[1].y=80;
+				rightarm.geometry.vertices[1].z=0;
+				
+				rightleg.geometry.vertices[1].x=20;
+				rightleg.geometry.vertices[1].y=0;
+				rightleg.geometry.vertices[1].z=0;
+				
+				leftleg.geometry.vertices[1].x=-20;
+				leftleg.geometry.vertices[1].y=0;
+				leftleg.geometry.vertices[1].z=0;
+				
+				leftarm.geometry.verticesNeedUpdate = true;
+				rightarm.geometry.verticesNeedUpdate = true;
+				rightleg.geometry.verticesNeedUpdate = true;
+				leftleg.geometry.verticesNeedUpdate = true;
+				jumpto="";
+				keeper.position.set(0, 512, -300);
+				keeper.rotation.y=0;
+				renderer.render(scene, camera);
+			}
+			
+			var mesh, texture;
+			var worldWidth = 256, worldDepth = 256,
+			worldHalfWidth = worldWidth / 2, worldHalfDepth = worldDepth / 2;
+
+			function generateHeight( width, height ) {
+				var size = width * height, data = new Uint8Array( size ),
+				perlin = new ImprovedNoise(), quality = 1, z = Math.random() * 100;
+				for ( var j = 0; j < 4; j ++ ) {
+					for ( var i = 0; i < size; i ++ ) {
+						var x = i % width, y = ~~ ( i / width );
+						data[ i ] += Math.abs( perlin.noise( x / quality, y / quality, z ) * quality * 1.75 );
+					}
+					quality *= 5;
+				}
+				return data;
+			}
+			function generateTexture( data, width, height ) {
+				var canvas, canvasScaled, context, image, imageData,
+				level, diff, vector3, sun, shade;
+				vector3 = new THREE.Vector3( 0, 0, 0 );
+				sun = new THREE.Vector3( 1, 1, 1 );
+				sun.normalize();
+				canvas = document.createElement( 'canvas' );
+				canvas.width = width;
+				canvas.height = height;
+				context = canvas.getContext( '2d' );
+				context.fillStyle = '#000';
+				context.fillRect( 0, 0, width, height );
+				image = context.getImageData( 0, 0, canvas.width, canvas.height );
+				imageData = image.data;
+				for ( var i = 0, j = 0, l = imageData.length; i < l; i += 4, j ++ ) {
+					vector3.x = data[ j - 2 ] - data[ j + 2 ];
+					vector3.y = 2;
+					vector3.z = data[ j - width * 2 ] - data[ j + width * 2 ];
+					vector3.normalize();
+					shade = vector3.dot( sun );
+					imageData[ i ] = ( 96 + shade * 128 ) * ( 0.5 + data[ j ] * 0.007 );
+					imageData[ i + 1 ] = ( 32 + shade * 96 ) * ( 0.5 + data[ j ] * 0.007 );
+					imageData[ i + 2 ] = ( shade * 96 ) * ( 0.5 + data[ j ] * 0.007 );
+				}
+				context.putImageData( image, 0, 0 );
+				// Scaled 4x
+				canvasScaled = document.createElement( 'canvas' );
+				canvasScaled.width = width * 4;
+				canvasScaled.height = height * 4;
+				context = canvasScaled.getContext( '2d' );
+				context.scale( 4, 4 );
+				context.drawImage( canvas, 0, 0 );
+				image = context.getImageData( 0, 0, canvasScaled.width, canvasScaled.height );
+				imageData = image.data;
+				for ( var i = 0, l = imageData.length; i < l; i += 4 ) {
+					var v = ~~ ( Math.random() * 5 );
+					imageData[ i ] += v;
+					imageData[ i + 1 ] += v;
+					imageData[ i + 2 ] += v;
+				}
+				context.putImageData( image, 0, 0 );
+				return canvasScaled;
+			}
+			data = generateHeight( worldWidth, worldDepth );
+			var geometry = new THREE.PlaneGeometry( 2048, 2048, worldWidth - 1, worldDepth - 1 );
+			geometry.rotateX( - Math.PI / 2 );
+			
+			for ( var i = 0, j = 0, l = geometry.vertices.length; i < l; i ++, j += 3 ) {
+				if (geometry.vertices[ i ].x<1024&&geometry.vertices[ i ].x>-1024&&geometry.vertices[ i ].z<1024&&geometry.vertices[ i ].z>-1024){
+					geometry.vertices[ i ].y = data[ i ] * 10;
+				}
+			}
+			texture = new THREE.CanvasTexture( generateTexture( data, worldWidth, worldDepth ) );
+			texture.wrapS = THREE.ClampToEdgeWrapping;
+			texture.wrapT = THREE.ClampToEdgeWrapping;
+			mesh = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { map: texture } ) );
+			mesh.rotation.z=Math.PI;
+			mesh.position.y+=500;
+			scene.add( mesh );
+		</script>
+	</body>
+</html>
