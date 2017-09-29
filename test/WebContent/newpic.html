@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN" prefix="og: http://ogp.me/ns#">
+<head>
+    <meta charset="utf-8" />
+    <meta name="Author" content="体可" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8, IE=9" />
+    <title>体可</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta content="telephone=yes" name="format-detection">
+    <meta content="email=yes" name="format-detection">
+    <meta name="Description" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="体可" />
+
+    <script src="js/jquery-2.2.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#theForm').ajaxForm(function(data) { 
+		alert(data);
+	});
+	
+});
+</script>
+
+</head>
+
+<body style="margin: 0px;padding: 0px;">
+
+	<form id="theForm" method="post" enctype="multipart/form-data" 		action="http://res.leasiondata.cn/newpic">
+	 <center> 礼品图片: <input type="file" name="cover"></center>
+	 <input type="hidden" name="t" value="0.1"></input>
+	 <input type="hidden" name="l" value="0.1"></input>
+	 <input type="hidden" name="w" value="0.5"></input>
+	 <input type="hidden" name="h" value="0.5"></input>
+	 <center><input type="submit" value="发布"></center>
+	</form>
+</body>
+</html>

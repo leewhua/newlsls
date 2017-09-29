@@ -1,0 +1,310 @@
+﻿<!DOCTYPE html  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN" prefix="og: http://ogp.me/ns#">
+<head>
+    <meta charset="utf-8" />
+    <meta name="Author" content="体可" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8, IE=9" />
+    <title>体可</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta content="telephone=yes" name="format-detection">
+    <meta content="email=yes" name="format-detection">
+    <meta name="Description" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="体可" />
+
+    <script src="js/jquery-2.2.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	alert(window.location.href.substring(window.location.href.indexOf("?")+1,window.location.href.indexOf(",")));
+	$.post("http://leasiondata.cn/info",
+			{"ticket":"8655b7086a9c4b31a9bed89832936db7",
+			"desc":"抽中红包"},
+		function(result){
+			alert(result);
+		});
+	$("#lingjiang").click(function(){
+	});
+
+	$("#addrlist").click(function(){
+		$.post("http://localhost:8080/lsplaycity/address",
+				{"token":"asdfasdf",
+			},
+			function(result){
+				alert(result);
+			});
+	});
+	$("#orderlist").click(function(){
+		$.post("http://localhost:8080/lsplaycity/exchange",
+				{"token":"asdfasdf",
+			},
+			function(result){
+				alert(result);
+			});
+	});
+
+	$("#changeaddr").click(function(){
+		$.post("http://localhost:8080/lsplaycity/address",
+				{"token":"asdfasdf",
+			"name":$("#name").val(),
+			"mobile":$("#mobile").val(),
+			"detail":$("#detail").val(),
+			"addressid":$("#addressid").val()
+			},
+			function(result){
+				alert(result);
+			});
+	});
+
+	$("#exchange10").click(function(){
+		$.post("http://localhost:8080/lsplaycity/exchange",
+				{"token":"asdfasdf",
+			"name":$("#name").val(),
+			"mobile":$("#mobile").val(),
+			"detail":$("#detail").val(),
+			"pid":10,"number":1
+			},
+			function(result){
+				alert(result);
+			});
+	});
+	$("#exchange12").click(function(){
+		$.post("http://localhost:8080/lsplaycity/exchange",
+				{"token":"asdfasdf",
+			"mobile":$("#mobile").val(),
+			"pid":12,"number":1
+			},
+			function(result){
+				alert(result);
+			});
+	});
+	$("#luck").click(function(){
+		$.post("http://localhost:8080/lsplaycity/luck",
+				{"token":"asdfasdf"
+			},
+			function(result){
+				alert(result);
+			});
+	});
+	$("#giftlist").click(function(){
+		$.post("http://localhost:8080/lsplaycity/list",
+				{"token":"oJ1Uas90OpdSnLXLIv7QP9Pz2spg"
+			},
+			function(result){
+				alert(result);
+			});
+	});
+
+	$("#deliver").click(function(){
+		$.post("http://res.leasiondata.cn/lsplaycitymanage/deliver",
+				{"token":"dd4235f37bae495a8d93332e0b4e092f","express":"顺丰","awb":"12341234","oid":"ed96ed56a60742d89a646fae092ce185"
+			},
+			function(result){
+				alert(result);
+			});
+	});
+	$("#2phase").click(function(){
+		$.post("http://leasiondata.cn/luck/playtoo",
+				{"ticket":"ae50199f953949e0bacbcb1062a154de14652316002618139"},
+			function(result){
+				alert(result);
+			});
+	});
+	
+	
+
+	$("#2phase2").click(function(){
+		$.post("http://leasiondata.cn/luck/playtoo",
+				{"ticket":"a18efeb7d1b44ccebd6cdae40db6370f14652321716184722","desc":"test"},
+			function(result){
+				alert(result);
+			});
+	});
+	
+	$("#houtaigiftlist").click(function(){
+		$.post("http://res.leasiondata.cn/lsplaycitymanage/",
+				{"u":"admin","p":"0e9hrg983hrfqpwh8fh098h"
+			},
+			function(result){
+				alert(result);
+				var res = eval("("+result+")");
+				$.post("http://res.leasiondata.cn/lsplaycitymanage/list",
+					{"token":res.ticket
+				},
+				function(result){
+					alert(result);
+				});
+			});
+
+	});
+	$("#houtaiorderlist").click(function(){
+		$.post("http://res.leasiondata.cn/lsplaycitymanage/",
+				{"u":"admin","p":"0e9hrg983hrfqpwh8fh098h"
+			},
+			function(result){
+				alert(result);
+				var res = eval("("+result+")");
+				$.post("http://res.leasiondata.cn/lsplaycitymanage/exchange",
+					{"token":res.ticket
+				},
+				function(result){
+					alert(result);
+				});
+			});
+
+	});
+
+	$("#houtaiallorderlist").click(function(){
+		$.post("http://res.leasiondata.cn/lsplaycitymanage/",
+				{"u":"admin","p":"0e9hrg983hrfqpwh8fh098h"
+			},
+			function(result){
+				alert(result);
+				var res = eval("("+result+")");
+				$.post("http://res.leasiondata.cn/lsplaycitymanage/orders",
+					{"token":res.ticket,"exchange_type":"1","status_type":"","type":"2"
+				},
+				function(result){
+					alert(result);
+				});
+			});
+
+	});
+
+	$("#houtaiuserlist").click(function(){
+		$.post("http://res.leasiondata.cn/lsplaycitymanage/",
+				{"u":"admin","p":"0e9hrg983hrfqpwh8fh098h"
+			},
+			function(result){
+				alert(result);
+				var res = eval("("+result+")");
+				$.post("http://res.leasiondata.cn/lsplaycitymanage/user_list",
+					{"token":res.ticket,"page":"1","size":"2"
+				},
+				function(result){
+					alert(result);
+				});
+			});
+
+	});
+
+	$("#demotwice").click(function(){
+		$.post("http://lsid.me/demoluck/playtoo",
+				{"ticket":"60da0795d68742f8b80890935c1754f614658262752774553"
+			},
+			function(result){
+				alert(result);
+				var res = eval("("+result+")");
+				$.post("http://lsid.me/demoluck/playtoo",
+					{"ticket":res.data.ticket,"desc":"抽中红包"
+				},
+				function(result){
+					alert(result);
+				});
+			});
+
+	});
+
+	$("#demoonce").click(function(){
+		$.post("http://lsid.me/demoluck/play",
+				{"ticket":"b277559d4eca4a8294560a2625c90a841465824278521463","desc":"抽中红包"
+			},
+			function(result){
+				alert(result);
+			});
+
+	});
+
+	
+	$("#updateorder").click(function(){
+		$.post("http://localhost:8080/lsplaycitymanage/",
+				{"u":"admin","p":"0e9hrg983hrfqpwh8fh098h"
+			},
+			function(result){
+				alert(result);
+				var res = eval("("+result+")");
+				$.post("http://localhost:8080/lsplaycitymanage/deliver",
+					{"token":res.ticket,"oid":$("#houtaioid").val(),"awb":$("#awb").val(),"express":$("#express").val()
+				},
+				function(result){
+					alert(result);
+				});
+			});
+
+	});
+	$('#theForm').ajaxForm(function(data) { 
+		alert(data);
+	});
+	$('#theUpdateForm').ajaxForm(function(data) { 
+		alert(data);
+	});
+	
+});
+</script>
+
+</head>
+
+<body style="margin: 0px;padding: 0px;">
+	<input id="name" type="text"/>
+	<input id="mobile" type="text"/>
+	<input id="detail" type="text"/>
+	<input id="oid" type="text" placeholder="oid"/>
+	<input id="addressid" type="text" placeholder="addressid"/>
+	<input id="lingjiang" type="button" value="lingjiang"/>
+	<input id="addrlist" type="button" value="addrlist"/>
+	<input id="orderlist" type="button" value="orderlist"/>
+	<input id="changeaddr" type="button" value="changeaddr"/>
+	<input id="exchange10" type="button" value="exchange10"/>
+	<input id="exchange12" type="button" value="exchange12"/>
+	<input id="luck" type="button" value="luck"/>
+	<input id="giftlist" type="button" value="giftlist"/>
+	<input id="houtaigiftlist" type="button" value="houtaigiftlist"/>
+	<input id="houtaiorderlist" type="button" value="houtaiorderlist"/>
+	<input id="houtaiallorderlist" type="button" value="houtaiallorderlist"/>
+	<input id="houtaiuserlist" type="button" value="houtaiuserlist"/>
+
+	<input id="houtaioid" type="text" placeholder="oid"/>
+	<input id="awb" type="text" placeholder="awb"/>
+	<input id="express" type="text" placeholder="express"/>
+	<input id="updateorder" type="button" value="updateorder"/>
+	<input id="deliver" type="button" value="deliver"/>
+	<input id="2phase" type="button" value="2phase"/>
+	<input id="2phase2" type="button" value="2phase2"/>
+
+	<input id="demoonce" type="button" value="demoonce"/>
+	<input id="demotwice" type="button" value="demotwice"/>
+
+	<form id="theForm" method="post" enctype="multipart/form-data" 		action="http://res.leasiondata.cn/newpic/pic?t=0.1&l=0.1&w=0.5&h=0.5">
+	 <center> 礼品图片: <input type="file" name="cover"></center>
+	  <center><input type="text" name="name" placeholder="礼品名称"></center>
+	  <center><input type="text" name="type" placeholder="礼品类型"></center>
+	  <center><input type="text" name="cash" placeholder="礼品现金价值"></center>
+	  <center><input type="text" name="price" placeholder="礼品积分"></center>
+	  <center><input type="text" name="description" placeholder="礼品描述"></center>
+	  <center><input type="text" name="count" placeholder="礼品数量"></center>
+	  <center><input type="text" name="exhibit_at" placeholder="上架时间"></center>
+	  <center><input type="text" name="unload_at" placeholder="下架时间"></center>
+	<center> 礼品详细图片: <input type="file" name="images1"></center>
+	<center> 礼品详细图片: <input type="file" name="images2"></center>
+	  <center><input type="submit" value="发布"></center>
+	</form>
+
+	<form id="theUpdateForm" method="post" enctype="multipart/form-data" 		action="http://res.leasiondata.cn/lsplaycitymanage/edit_item?token=ac8d6512f44d4985bc7357f98c417021&pid=f56e0d40c03f49d6be4dff34b5a5c92c">
+	 <center> 礼品图片: <input type="file" name="cover"></center>
+	  <center><input type="text" name="name" placeholder="礼品名称"></center>
+	  <center><input type="text" name="type" placeholder="礼品类型"></center>
+	  <center><input type="text" name="cash" placeholder="礼品现金价值"></center>
+	  <center><input type="text" name="price" placeholder="礼品积分"></center>
+	  <center><input type="text" name="description" placeholder="礼品描述"></center>
+	  <center><input type="text" name="count" placeholder="礼品数量"></center>
+	  <center><input type="text" name="exhibit_at" placeholder="上架时间"></center>
+	  <center><input type="text" name="unload_at" placeholder="下架时间"></center>
+	<center> 礼品详细图片: <input type="file" name="images1"></center>
+	<center> 礼品详细图片: <input type="file" name="images2"></center>
+	  <center><input type="submit" value="发布"></center>
+	</form>
+
+    <div style="position: absolute;width:100%;height:100%;background: transparent url(../image/luck.png) no-repeat center top;background-size: cover;">
+	
+    </div>
+</body>
+</html>
